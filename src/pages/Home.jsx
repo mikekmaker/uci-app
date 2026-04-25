@@ -4,8 +4,8 @@
 //import { useApp } from "../context/AppContext" <-- reemplazo esto por zustand
 import { useAuthStore } from "../store/authStore"
 //import Button from "../components/Button"
-import { Button } from "../components/ui/button"
-import { Card } from "../components/ui/card"
+import { Button } from "../components/ui/Button"
+import { Card } from "../components/ui/Card"
 //import { useQuery } from "@tanstack/react-query"
 import { usePost } from "../hooks/usePost"
 
