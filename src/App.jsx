@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import { GlobalLoader } from "./components/GlobalLoader";
 import MainLayout from "./layouts/MainLayout"
-import Home from "./pages/home"
+import Home from "./pages/Home"
 import About from "./pages/About"
 import Login from "./pages/Login"
 import Editor from "./pages/Editor"
