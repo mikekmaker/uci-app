@@ -47,13 +47,21 @@ const handleLogout = () => {
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded-md bg-blue-600 text-white"
-            >
-              Login
-            </Link>
-          )}
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-md bg-blue-600 text-white"
+              >
+                Login
+              </Link>
+              <Link
+              to="/register"
+              className="px-4 py-2 rounded-md bg-lime-600 text-white"
+              >
+              Registro
+              </Link>
+            </>
+          )}          
         </nav>
       </header>
 
