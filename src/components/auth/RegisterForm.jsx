@@ -20,7 +20,7 @@ export default function RegisterForm() {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      alert("Las contraseÃ±as no coinciden");
+      alert("Las contraseÃƒÂ±as no coinciden");
       return;
     }
     
@@ -46,7 +46,7 @@ export default function RegisterForm() {
           </h1>
 
           <p className="text-slate-300 text-lg leading-relaxed mb-8">
-            RegÃ­strate para comenzar a auditar cÃ³digo con inteligencia
+            Regítrate para comenzar a auditar código con inteligencia
             artificial, seguridad automatizada y reportes profesionales.
           </p>
 
@@ -161,12 +161,12 @@ export default function RegisterForm() {
             </Button>
 
             <p className="text-sm text-center text-slate-500">
-              Â¿Ya tienes cuenta?{" "}
+              ¿Ya tienes cuenta?{" "}
               <Link
                 to="/login"
                 className="font-semibold text-slate-900 hover:underline"
               >
-                Iniciar sesiÃ³n
+                Iniciar sesión
               </Link>
             </p>
           </form>
