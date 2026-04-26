@@ -110,7 +110,7 @@ export default function RegisterForm() {
             </div>
 
             <div>
-                <Label>usuario</Label>
+                <Label>Usuario</Label>
                 <Input
                   value={form.username}
                   onChange={(e) =>
