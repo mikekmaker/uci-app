@@ -123,7 +123,7 @@ export default function RegisterForm() {
             </div>
 
             <div>
-              <Label>Password</Label>
+              <Label>Contraseña</Label>
               <Input
                 type="password"
                 value={form.password}
@@ -137,7 +137,7 @@ export default function RegisterForm() {
             </div>
 
             <div>
-              <Label>Confirm Password</Label>
+              <Label>Confirmar Contraseña</Label>
               <Input
                 type="password"
                 value={form.confirmPassword}
