@@ -32,7 +32,7 @@ export default function LoginForm() {
       </h1>
 
       <p className="text-slate-300 text-lg leading-relaxed mb-8">
-        Accede a tu plataforma de auditorÃ­Â­a de cÃ³digo con inteligencia
+        Accede a tu plataforma de auditorí­a de código con inteligencia
         artificial, seguridad automatizada y reportes profesionales.
       </p>
 
