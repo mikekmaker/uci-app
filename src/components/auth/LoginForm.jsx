@@ -32,7 +32,7 @@ export default function LoginForm() {
       </h1>
 
       <p className="text-slate-300 text-lg leading-relaxed mb-8">
-        Accede a tu plataforma de auditorÃ­a de cÃ³digo con inteligencia
+        Accede a tu plataforma de auditorí­a de código con inteligencia
         artificial, seguridad automatizada y reportes profesionales.
       </p>
 
@@ -59,7 +59,7 @@ export default function LoginForm() {
       >
         <div>
           <h1 className="text-3xl font-bold text-slate-900">
-            Iniciar sesiÃ³n
+            Iniciar sesiÃƒÂ³n
           </h1>
 
           <p className="text-slate-500 mt-2">
@@ -81,7 +81,7 @@ export default function LoginForm() {
         </div>
 
         <div>
-          <Label>Contraseña</Label>
+          <Label>ContraseÃ±a</Label>
           <Input
             type="password"
             value={form.password}
@@ -96,7 +96,7 @@ export default function LoginForm() {
 
         {error && (
           <p className="text-sm text-red-500">
-            {error.response?.data?.detail || "Usuario o contraseÃ±a incorrectos"}
+            {error.response?.data?.detail || "Usuario o contraseÃƒÂ±a incorrectos"}
           </p>
         )}
 
