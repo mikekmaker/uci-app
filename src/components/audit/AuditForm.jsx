@@ -96,6 +96,8 @@ export default function AuditForm() {
                 fontSize: 14,
                 automaticLayout: true,
                 scrollBeyondLastLine: false,
+                wordWrap: "on",
+                wrappingIndent: "same",
                 padding: {
                   top: 20,
                 },
