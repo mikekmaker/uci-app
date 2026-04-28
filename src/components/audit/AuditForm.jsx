@@ -24,26 +24,28 @@ export default function AuditForm() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 px-4 py-8">
-      <div className="mx-auto w-full max-w-7xl rounded-3xl bg-white shadow-xl overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-white px-6 py-10">
+      <div className="mx-auto w-full max-w-7xl rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[85vh]">
-          
+
           {/* Panel izquierdo */}
-          <div className="p-8 border-r border-slate-200 flex flex-col gap-6">
-            <div>              
-              <p className="text-sm text-slate-500 mt-2">
+          <div className="p-8 border-r border-slate-800 flex flex-col gap-8">
+            <div><p className="text-base text-slate-300 mt-4 leading-relaxed">
                 Selecciona el lenguaje, el tipo de análisis y envía el código
-                para revisión estática.
+                para revisión estática impulsada por inteligencia artificial.
               </p>
             </div>
 
-            <div className="grid gap-5">
+            <div className="grid gap-6">
               <div>
-                <Label className="mb-2 block">Lenguaje</Label>
+                <Label className="mb-3 block text-sm font-medium text-slate-200">
+                  Lenguaje
+                </Label>
+
                 <select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none focus:border-slate-500"
+                  className="w-full rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400 transition"
                 >
                   <option value="java">Java</option>
                   <option value="python">Python</option>
@@ -54,11 +56,14 @@ export default function AuditForm() {
               </div>
 
               <div>
-                <Label className="mb-2 block">Tipo de análisis</Label>
+                <Label className="mb-3 block text-sm font-medium text-slate-200">
+                  Tipo de análisis
+                </Label>
+
                 <select
                   value={analysisType}
                   onChange={(e) => setAnalysisType(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none focus:border-slate-500"
+                  className="w-full rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400 transition"
                 >
                   <option value="security">Security</option>
                   <option value="clean_code">Clean Code</option>
@@ -71,7 +76,7 @@ export default function AuditForm() {
             <div className="mt-auto">
               <Button
                 onClick={handleSubmit}
-                className="w-full rounded-xl py-6 text-base font-semibold"
+                className="w-full rounded-2xl py-6 text-base font-semibold"
               >
                 Enviar a revisión
               </Button>
