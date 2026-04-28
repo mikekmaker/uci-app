@@ -30,10 +30,7 @@ export default function AuditForm() {
           
           {/* Panel izquierdo */}
           <div className="p-8 border-r border-slate-200 flex flex-col gap-6">
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900">
-                Auditoría de Código
-              </h1>
+            <div>              
               <p className="text-sm text-slate-500 mt-2">
                 Selecciona el lenguaje, el tipo de análisis y envía el código
                 para revisión estática.

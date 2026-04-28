@@ -6,6 +6,7 @@ import About from "./pages/About"
 import Login from "./pages/Login"
 import Editor from "./pages/Editor"
 import Register from "./pages/Register"
+import Profile from "./pages/Profile"
 
 export default function App() {
   return (  
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="about" element={<About />} />
         <Route path="editor" element={<Editor />} />        
         <Route path="register" element={<Register />} />
+        <Route path="profile" element={<Profile/> } />
       </Route>
     </Routes>
     </>

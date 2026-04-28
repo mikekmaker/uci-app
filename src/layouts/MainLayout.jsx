@@ -25,30 +25,20 @@ border-b border-blue-500 shadow-lg">
             src={logo}
             alt="AI CRP Logo"
             className="w-10 h-10 object-contain"
-          />
-          <h1 className="text-lg font-semibold text-gray-500">
-            AI CRP
-          </h1>
-        </Link>
-        {/* <nav className="flex gap-3">
-          <Link to="/">Inicio</Link>
-          <Link to="/about">Acerca</Link>
-
-          <Link
-            to="/login"
-            className="px-4 py-2 rounded-md bg-blue-600 text-white"
-          >
-            Login
-          </Link>
-        </nav> */}
-        <nav className="flex gap-3 items-center">
-          <Link to="/"><p className="text-lg font-semibold text-gray-500" >Inicio</p></Link>
-          <Link to="/about"><p className="text-lg font-semibold text-gray-500" >Acerca</p></Link>
+          />          
+        </Link>       
+        <nav className="flex gap-3 items-center">         
           {token ? (
             <>
+             <Link
+                to="/profile"
+                className="text-lg font-semibold text-gray-500"
+              >
+                Perfil
+              </Link>
               <Link
                 to="/editor"
-                className="px-4 py-2 rounded-md bg-gray-200"
+                className="px-4 py-2 rounded-md bg-blue-600 text-white"
               >
                 Editor
               </Link>
@@ -60,6 +50,12 @@ border-b border-blue-500 shadow-lg">
             </>
           ) : (
             <>
+              <Link
+                to="/"
+                className="text-lg font-semibold text-gray-500"
+              >
+                Inicio
+              </Link>
               <Link
                 to="/login"
                 className="px-4 py-2 rounded-md bg-blue-600 text-white"
@@ -73,7 +69,8 @@ border-b border-blue-500 shadow-lg">
               Registro
               </Link>
             </>
-          )}          
+          )}
+          <Link to="/about"  className="px-4 py-2 rounded-md bg-gray-200">Acerca</Link>          
         </nav>
       </header>
 
