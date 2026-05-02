@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { Label } from "../ui/Label";
 import { Button } from "../ui/Button";
+import { useAudit } from "../../hooks/useAudit";
 
 export default function AuditForm() {
+  const { mutate, isPending, error } = useAudit();
+  const USE_MOCK = false;
   const [language, setLanguage] = useState("java");
   const [analysisType, setAnalysisType] = useState("security");
   const [code, setCode] = useState(`public class Test {
@@ -13,32 +16,103 @@ export default function AuditForm() {
     }
 }`);
 
-  const handleSubmit = () => {
-    const payload = {
-      codigoFuente: code,
-      lenguaje: language,
-      tipoAnalisis: analysisType,
-    };
+  // resultado de explicacion pedagogica
+  const [resultado, setResultado] = useState("");
+  const [typedText, setTypedText] = useState("");
 
-    console.log("Payload auditoría:", payload);
+  // estado del resultado del analisis 
+  const [analysisResult, setAnalysisResult] = useState(null);
+
+  const mockResponse = {
+    id: 1,
+    language: "java",
+    fecha: "2026-05-01",
+    hora: "21:05:19",
+    issues: [
+      {
+        severity: "CRITICO",
+        type: "SQL_INJECTION",
+        description: "Aunque se utiliza un PreparedStatement...",
+        line: 15,
+      },
+      {
+        severity: "ADVERTENCIA",
+        type: "MANEJO_DE_EXCEPCIONES",
+        description: "El código no maneja adecuadamente las excepciones...",
+        line: 10,
+      },
+      {
+        severity: "SUGERENCIA",
+        type: "NOMBRE_DE_VARIABLES",
+        description: "Los nombres de las variables podrían ser más descriptivos...",
+        line: 5,
+      },
+    ],
+    refactored_code: "public class LoginSeguro { ... }",
+    pedagogical_explanation:
+      "La seguridad en la autenticación de usuarios es fundamental...",
   };
 
+  const handleSubmit = () => {
+  const payload = {
+    code: code,
+    language: language,
+  };
+
+  console.log("Payload auditoría:", payload);
+
+  if (USE_MOCK) {
+    setAnalysisResult(mockResponse);
+    setResultado(mockResponse.pedagogical_explanation);
+    return;
+  }
+
+  mutate(payload, {
+    onSuccess: (response) => {
+      setAnalysisResult(response.data || response);
+      setResultado(
+        (response.data || response).pedagogical_explanation
+      );
+    },
+  });
+};
+
+  // 🔹 Typewriter effect
+  useEffect(() => {
+    if (!resultado) return;
+
+    let i = 0;
+    setTypedText("");
+
+    const interval = setInterval(() => {
+      i++;
+      setTypedText(resultado.slice(0, i));
+
+      if (i >= resultado.length) {
+        clearInterval(interval);
+      }
+    }, 15);
+
+    return () => clearInterval(interval);
+  }, [resultado]);
+
   return (
-    <div className="min-h-screen bg-slate-950 text-white px-6 py-10">
-      <div className="mx-auto w-full max-w-7xl rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[85vh]">
+    <div className="min-h-screen bg-slate-950 text-white px-4 sm:px-6 py-8">
+      <div className="mx-auto w-full max-w-7xl">
 
-          {/* Panel izquierdo */}
-          <div className="p-8 border-r border-slate-800 flex flex-col gap-8">
-            <div><p className="text-base text-slate-300 mt-4 leading-relaxed">
-                Selecciona el lenguaje, el tipo de análisis y envía el código
-                para revisión estática impulsada por inteligencia artificial.
-              </p>
-            </div>
+        {/* 🔹 GRID PRINCIPAL */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-            <div className="grid gap-6">
+          {/* 🔹 CONTROLES */}
+          <div className="bg-slate-900/70 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-slate-800 flex flex-col gap-6">
+            <p className="text-sm text-slate-300 leading-relaxed">
+              Selecciona el lenguaje, el tipo de análisis y envía el código
+              para revisión estática impulsada por inteligencia artificial.
+            </p>
+
+            <div className="grid gap-5">
               <div>
-                <Label className="mb-3 block text-sm font-medium text-slate-200">
+                <Label className="mb-2 block text-sm text-slate-200">
                   Lenguaje
                 </Label>
 
@@ -56,7 +130,7 @@ export default function AuditForm() {
               </div>
 
               <div>
-                <Label className="mb-3 block text-sm font-medium text-slate-200">
+                <Label className="mb-2 block text-sm text-slate-200">
                   Tipo de análisis
                 </Label>
 
@@ -73,18 +147,24 @@ export default function AuditForm() {
               </div>
             </div>
 
-            <div className="mt-auto">
-              <Button
-                onClick={handleSubmit}
-                className="w-full rounded-2xl py-6 text-base font-semibold"
-              >
-                Enviar a revisión
-              </Button>
-            </div>
+            {/* 🔹 ERROR */}
+            {error && (
+              <p className="text-sm text-red-500">
+                {error.response?.data?.detail || "Error al analizar el código"}
+              </p>
+            )}
+
+            <Button
+              onClick={handleSubmit}
+              disabled={isPending}
+              className="w-full rounded-2xl py-5 text-base font-semibold mt-auto"
+            >
+              {isPending ? "Analizando..." : "Enviar a revisión"}
+            </Button>
           </div>
 
-          {/* Panel derecho */}
-          <div className="bg-slate-950">
+          {/* 🔹 EDITOR */}
+          <div className="bg-slate-900/70 rounded-2xl border border-slate-800 overflow-hidden min-h-[400px]">
             <Editor
               height="100%"
               theme="vs-dark"
@@ -104,6 +184,75 @@ export default function AuditForm() {
               }}
             />
           </div>
+
+          {/* 🔹 RESULTADO */}
+          <div className="space-y-6">
+
+          {/* 🔹 Issues */}
+          {analysisResult?.issues && (
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-slate-300">
+                Issues detectados
+              </h3>
+
+              <div className="space-y-3">
+                {analysisResult.issues.map((issue, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 rounded-xl bg-slate-800 border border-slate-700"
+                  >
+                    <div className="text-xs font-semibold mb-1">
+                      {issue.severity} • {issue.type} • Línea {issue.line}
+                    </div>
+                    <div className="text-xs text-slate-300">
+                      {issue.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 🔹 Código refactorizado */}
+          {analysisResult?.refactored_code && (
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-slate-300">
+                Código sugerido
+              </h3>
+
+              <div className="rounded-xl overflow-hidden border border-slate-800">
+                <Editor
+                  height="300px"
+                  theme="vs-dark"
+                  language={language}
+                  value={analysisResult.refactored_code}
+                  options={{
+                    readOnly: true,
+                    minimap: { enabled: false },
+                    fontSize: 13,
+                    scrollBeyondLastLine: false,
+                    wordWrap: "on",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* 🔹 Explicación (TYPEWRITER) */}
+          {analysisResult?.pedagogical_explanation && (
+            <div>
+              <h3 className="text-sm font-semibold mb-3 text-slate-300">
+                Explicación
+              </h3>
+
+              <div className="text-sm text-slate-200 whitespace-pre-wrap font-mono">
+                {typedText}
+              </div>
+            </div>
+          )}
+
+        </div>
+
         </div>
       </div>
     </div>
