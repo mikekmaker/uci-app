@@ -122,10 +122,11 @@ export default function AuditForm() {
                   className="w-full rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400 transition"
                 >
                   <option value="java">Java</option>
+                  <option value="javascript">JavaScript</option>                  
+                  <option value="kotlin">kotlin</option>
                   <option value="python">Python</option>
-                  <option value="csharp">C#</option>
-                  <option value="javascript">JavaScript</option>
-                  <option value="kotlin">Kotlin</option>
+                  <option value="sql">Sql</option>
+                  <option value="typescript">TypeScript</option>
                 </select>
               </div>
 
@@ -139,10 +140,10 @@ export default function AuditForm() {
                   onChange={(e) => setAnalysisType(e.target.value)}
                   className="w-full rounded-2xl border border-slate-700 bg-slate-800 px-4 py-3 text-sm text-white outline-none focus:border-cyan-400 transition"
                 >
-                  <option value="security">Security</option>
-                  <option value="clean_code">Clean Code</option>
-                  <option value="performance">Performance</option>
                   <option value="full_review">Full Review</option>
+                  <option value="clean_code">Clean Code</option>                                    
+                  <option value="performance">Performance</option>
+                  <option value="security">Security</option>                  
                 </select>
               </div>
             </div>
@@ -186,73 +187,70 @@ export default function AuditForm() {
           </div>
 
           {/* 🔹 RESULTADO */}
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:col-span-2">
+             {/* 🔹 Explicación */}
+            {analysisResult?.pedagogical_explanation && (
+              <div className="lg:col-span-2 bg-slate-900/70 rounded-2xl p-6 border border-slate-800">
+                <h3 className="text-sm font-semibold mb-3 text-slate-300">
+                  Explicación
+                </h3>
 
-          {/* 🔹 Issues */}
-          {analysisResult?.issues && (
-            <div>
-              <h3 className="text-sm font-semibold mb-3 text-slate-300">
-                Issues detectados
-              </h3>
+                <div className="text-sm text-slate-200 whitespace-pre-wrap font-mono">
+                  {typedText}
+                </div>
+              </div>
+            )}
 
-              <div className="space-y-3">
-                {analysisResult.issues.map((issue, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 rounded-xl bg-slate-800 border border-slate-700"
-                  >
-                    <div className="text-xs font-semibold mb-1">
-                      {issue.severity} • {issue.type} • Línea {issue.line}
+            {/* 🔹 Issues */}
+            {analysisResult?.issues && (
+              <div className="bg-slate-900/70 rounded-2xl p-6 border border-slate-800">
+                <h3 className="text-sm font-semibold mb-3 text-slate-300">
+                  Issues detectados
+                </h3>
+
+                <div className="space-y-3">
+                  {analysisResult.issues.map((issue, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-slate-800 border border-slate-700"
+                    >
+                      <div className="text-xs font-semibold mb-1">
+                        {issue.severity} • {issue.type} • Línea {issue.line}
+                      </div>
+                      <div className="text-xs text-slate-300">
+                        {issue.description}
+                      </div>
                     </div>
-                    <div className="text-xs text-slate-300">
-                      {issue.description}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* 🔹 Código refactorizado */}
-          {analysisResult?.refactored_code && (
-            <div>
-              <h3 className="text-sm font-semibold mb-3 text-slate-300">
-                Código sugerido
-              </h3>
+            {/* 🔹 Código refactorizado */}
+            {analysisResult?.refactored_code && (
+              <div className="bg-slate-900/70 rounded-2xl p-6 border border-slate-800">
+                <h3 className="text-sm font-semibold mb-3 text-slate-300">
+                  Código sugerido
+                </h3>
 
-              <div className="rounded-xl overflow-hidden border border-slate-800">
-                <Editor
-                  height="300px"
-                  theme="vs-dark"
-                  language={language}
-                  value={analysisResult.refactored_code}
-                  options={{
-                    readOnly: true,
-                    minimap: { enabled: false },
-                    fontSize: 13,
-                    scrollBeyondLastLine: false,
-                    wordWrap: "on",
-                  }}
-                />
+                <div className="rounded-xl overflow-hidden border border-slate-800">
+                  <Editor
+                    height="300px"
+                    theme="vs-dark"
+                    language={language}
+                    value={analysisResult.refactored_code}
+                    options={{
+                      readOnly: true,
+                      minimap: { enabled: false },
+                      fontSize: 13,
+                      scrollBeyondLastLine: false,
+                      wordWrap: "on",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-
-          {/* 🔹 Explicación (TYPEWRITER) */}
-          {analysisResult?.pedagogical_explanation && (
-            <div>
-              <h3 className="text-sm font-semibold mb-3 text-slate-300">
-                Explicación
-              </h3>
-
-              <div className="text-sm text-slate-200 whitespace-pre-wrap font-mono">
-                {typedText}
-              </div>
-            </div>
-          )}
-
-        </div>
-
+            )}
+          </div>
         </div>
       </div>
     </div>
