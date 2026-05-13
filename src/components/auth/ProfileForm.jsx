@@ -74,8 +74,8 @@ export default function ProfileForm() {
                 Usuario logueado:
               </span>
 
-              {user ? (
-                <span> {user.nombre} {user.apellido}</span>
+              {data ? (
+                <span> {data.nombre} {data.apellido}</span>
               ) : (
                 <span> Sin usuario autenticado</span>
               )}
