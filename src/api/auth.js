@@ -1,12 +1,12 @@
 import { apiClient } from "./client";
 
 export const loginRequest = (data) =>
-  apiClient.post("/Login", data);
+  apiClient.post("/auth/login", data);
 
 export const meRequest = () =>
-  apiClient.get("/me");
+  apiClient.get("/auth/me");
 
 export const registerRequest = (data) =>
-  apiClient.post("/Register", data);
+  apiClient.post("/auth/Register", data);
 
 
