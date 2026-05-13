@@ -6,7 +6,10 @@ export default function MainLayout() {
 const navigate = useNavigate();
 const token = useAuthStore((s) => s.token);
 const logout = useAuthStore((s) => s.logout);
+const user = useAuthStore((s)=> s.user);
 console.log(token);
+console.log(user.nombre);
+console.log(user.apellido);
 console.log(logout);
 
 const handleLogout = () => {
