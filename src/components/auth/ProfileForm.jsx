@@ -25,8 +25,8 @@ export default function ProfileForm() {
   const user = useAuthStore((s) => s.user)
   const logout = useAuthStore((s) => s.logout)
   //parche
-  console.log(JSON.stringify(user.nombre));
-  console.log(JSON.stringify(user.apellido));
+  //console.log(JSON.stringify(user.nombre));
+  //console.log(JSON.stringify(user.apellido));
   //fin parche
   // useEffect(() => {
   //   apiGet("https://jsonplaceholder.typicode.com/posts/1")
