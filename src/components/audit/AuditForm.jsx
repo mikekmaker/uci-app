@@ -48,8 +48,8 @@ export default function AuditForm() {
         line: 5,
       },
     ],
-    refactored_code: "public class LoginSeguro { ... }",
-    pedagogical_explanation:
+    reingenieria: "public class LoginSeguro { ... }",
+    codigoExplicado:
       "La seguridad en la autenticación de usuarios es fundamental...",
   };
 
@@ -64,7 +64,7 @@ export default function AuditForm() {
 
   if (USE_MOCK) {
     setAnalysisResult(mockResponse);
-    setResultado(mockResponse.pedagogical_explanation);
+    setResultado(mockResponse.codigoExplicado);
     return;
   }
 
@@ -72,7 +72,7 @@ export default function AuditForm() {
     onSuccess: (response) => {
       setAnalysisResult(response.data || response);
       setResultado(
-        (response.data || response).pedagogical_explanation
+        (response.data || response).codigoExplicado
       );
     },
   });
@@ -190,7 +190,7 @@ export default function AuditForm() {
           {/* 🔹 RESULTADO */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:col-span-2">
              {/* 🔹 Explicación */}
-            {analysisResult?.pedagogical_explanation && (
+            {analysisResult?.codigoExplicado && (
               <div className="lg:col-span-2 bg-slate-900/70 rounded-2xl p-6 border border-slate-800">
                 <h3 className="text-sm font-semibold mb-3 text-slate-300">
                   Explicación
@@ -228,7 +228,7 @@ export default function AuditForm() {
             )}
 
             {/* 🔹 Código refactorizado */}
-            {analysisResult?.refactored_code && (
+            {analysisResult?.reingenieria && (
               <div className="bg-slate-900/70 rounded-2xl p-6 border border-slate-800">
                 <h3 className="text-sm font-semibold mb-3 text-slate-300">
                   Código sugerido
@@ -239,7 +239,7 @@ export default function AuditForm() {
                     height="300px"
                     theme="vs-dark"
                     language={language}
-                    value={analysisResult.refactored_code}
+                    value={analysisResult.reingenieria}
                     options={{
                       readOnly: true,
                       minimap: { enabled: false },
