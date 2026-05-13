@@ -11,7 +11,7 @@ const logout = useAuthStore((s) => s.logout);
 console.log(token);
 //console.log(user.nombre);
 //console.log(user.apellido);
-console.log(logout);
+//console.log(logout);
 
 const handleLogout = () => {
   logout();
