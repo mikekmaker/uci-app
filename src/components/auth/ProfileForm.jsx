@@ -25,7 +25,7 @@ export default function ProfileForm() {
   const user = useAuthStore((s) => s.user)
   const logout = useAuthStore((s) => s.logout)
   //parche
-  console.log(user);
+  console.log(JSON.stringify(user));
   console.log(logout);
   //fin parche
   // useEffect(() => {
