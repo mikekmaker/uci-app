@@ -55,8 +55,9 @@ export default function AuditForm() {
 
   const handleSubmit = () => {
   const payload = {
-    code: code,
-    language: language,
+    codigoFuente: code,
+    lenguaje: language,
+    tipoAnalisis : analysisType
   };
 
   console.log("Payload auditoría:", payload);
