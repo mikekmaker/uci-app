@@ -7,6 +7,6 @@ export const meRequest = () =>
   apiClient.get("/auth/me");
 
 export const registerRequest = (data) =>
-  apiClient.post("/auth/Register", data);
+  apiClient.post("/auth/register", data);
 
 
